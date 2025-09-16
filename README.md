@@ -21,7 +21,7 @@ A small but growing AutoLISP utility for **renaming layout tabs based on title b
 
 ### Usage
 This project exposes one or more commands/functions to rename layouts based on your title block attributes.  
-Open `src/RenameLayouts.lsp` to see available commands (look for any `C:<CommandName>` definitions). Common patterns:
+Open `src/UpdateLayouts.lsp` to see available commands (look for any `C:<CommandName>` definitions). Common patterns:
 ```lisp
 ; Example invocation once loaded:
 ; (c:RenameLayouts)       ; if defined
