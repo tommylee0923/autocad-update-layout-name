@@ -4,6 +4,7 @@ A small but growing AutoLISP utility for **renaming layout tabs based on title b
 
 ## Features
 - Read block attributes from layouts (e.g., sheet number/title) and rename layouts accordingly
+- **Batch command** to update all layouts at once (since v0.2.0)
 - Modular `src/` structure with versioned releases
 - CI checks for Markdown and EditorConfig compliance
 - Conventional Commits + semantic versioning
@@ -13,15 +14,16 @@ A small but growing AutoLISP utility for **renaming layout tabs based on title b
 
 ### Installation
 1. Clone or download this repository.
-2. In AutoCAD, run `APPLOAD`, browse to `src/UpdateLayouts.lsp`, and load it.  
+2. In AutoCAD, run `APPLOAD`, browse to `src/RenameLayouts.lsp`, and load it.  
    Alternatively, add the folder to your AutoCAD support file search path and use:
    ```lisp
-   (load "UpdateLayouts.lsp")
+   (load "RenameLayouts.lsp")
+
    ```
 
 ### Usage
 This project exposes one or more commands/functions to rename layouts based on your title block attributes.  
-Open `src/UpdateLayouts.lsp` to see available commands (look for any `C:<CommandName>` definitions). Common patterns:
+Open `src/RenameLayouts.lsp` to see available commands (look for any `C:<CommandName>` definitions). Common patterns:
 ```lisp
 ; Example invocation once loaded:
 ; (c:RenameLayouts)       ; if defined
@@ -41,7 +43,7 @@ Open `src/UpdateLayouts.lsp` to see available commands (look for any `C:<Command
 docs/
 examples/
 src/
-  UpdateLayouts.lsp
+  RenameLayouts.lsp
 tests/
 .editorconfig
 .gitignore
