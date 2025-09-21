@@ -17,7 +17,7 @@ A small but growing AutoLISP utility for **renaming layout tabs based on title b
 2. In AutoCAD, run `APPLOAD`, browse to `src/RenameLayouts.lsp`, and load it.  
    Alternatively, add the folder to your AutoCAD support file search path and use:
    ```lisp
-   (load "RenameLayouts.lsp")
+   (load "UpdateLayouts.lsp")
 
    ```
 
@@ -43,7 +43,7 @@ Open `src/RenameLayouts.lsp` to see available commands (look for any `C:<Command
 docs/
 examples/
 src/
-  RenameLayouts.lsp
+  UpdateLayouts.lsp
 tests/
 .editorconfig
 .gitignore
@@ -60,7 +60,6 @@ pre-commit-config.yaml
 - Open issues with clear reproduction steps; submit PRs with a short demo GIF if possible.
 
 ### Releasing
-- Use semantic versioning: `v0.1.0`, `v0.2.0`, …
 - Create a GitHub Release with notes pulled from `CHANGELOG.md`
 
 ## Roadmap
