@@ -1,18 +1,19 @@
 ;----------------------------------------------------------------------
 ; UpdateLayouts.lsp
 ; Author:     Tommy Lee
-; Date:       2025-09-17
-; Version:    0.2.0
+; Date:       2025-09-20
+; Version:    0.3.0
 ; Purpose:    Renames layouts to match sheet number + drawing title
 ; Notes:      - Assumes one title block per layout
 ;             - Requires values in the attribute tags configured below
-;			  - Requires the following configuration variables in `RenameLayouts.lsp`:
-;			    - `*TB_BLOCK_NAME*` → your title block name
-;			    - `*SHEET_TAG*` → attribute tag for sheet number
-;			    - `*TITLE_TAGS*` → list of attribute tags for drawing title lines
+;             - Requires the following configuration variables at the top of this file:
+;			          - *TB_BLOCK_NAME* → your title block name
+;			          - *SHEET_TAG* → attribute tag for sheet number
+;			          - *TITLE_TAGS* → list of attribute tags for drawing title lines
 ; Change Log:
-;	v0.2.0 	- Added a new command that renames all layout name at the same time based on the same logic.
-;			- Added two new helpers that receive layout objects as arguments.
+;   v0.3.0    - Add prompt to rename Current layout or All layouts (new command flow).
+;   v0.2.0    - Add command to rename all layouts at once; add helpers that accept layout objects.
+;   v0.1.0    - Initial public release with config-driven tags.
 ;----------------------------------------------------------------------
 
 (vl-load-com)
@@ -172,7 +173,7 @@
 ;----------------------------------------------------------------------
 ; Main Commands
 ;----------------------------------------------------------------------
-(defun c:UpdateLayoutName (/ shtnum title newName oldName acadApp doc layouts layObj)
+(defun _updateCurrentLayoutName (/ shtnum title newName oldName acadApp doc layouts layObj)
   (setq shtnum  (_getSheetNumberOnLayout *TB_BLOCK_NAME* *SHEET_TAG*)
         title   (_getTitleString)
         newName (strcat (if shtnum shtnum "") " " (if title title "")))
@@ -202,7 +203,7 @@
     (prompt "\nError: Could not find a valid sheet number in the title block."))
   (princ))
 
-(defun c:UpdateAllLayoutName (/ shtnum title newName oldName acad 
+(defun _updateAllLayoutName (/ shtnum title newName oldName acad 
                                                doc layouts L
                                               ) 
   (setq
@@ -261,6 +262,25 @@
 		)
 		(prompt "\nError: Could not find a valid sheet number or title in the title block.")
 	  )
+  )
+  (princ)
+)
+
+(defun c:UpdateLayouts ( / option)
+  (initget "All Current")
+  (setq option (getkword "\nWhich layout(s) do you want to rename? [All/Current] <All>: "))
+  
+  (if (null option) (setq option "All"))
+  
+  (cond
+    ((= option "All")
+      (princ "\nRenaming all layouts...")
+      (_updateAllLayoutName)     
+    )
+    ((= option "Current")
+      (princ "\nRenaming current layout...")
+      (_updateCurrentLayoutName)     
+    )
   )
   (princ)
 )
